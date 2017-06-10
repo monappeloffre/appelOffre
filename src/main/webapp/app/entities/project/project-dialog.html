@@ -1,0 +1,83 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myProjectLabel">Create or edit a Project</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.project.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.project.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.project.title"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+                <textarea class="form-control" name="description" id="field_description"
+                    ng-model="vm.project.description" ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dateSend">Date Send</label>
+                <div class="input-group">
+                    <input id="field_dateSend" type="text" class="form-control" name="dateSend" uib-datepicker-popup="{{dateformat}}" ng-model="vm.project.dateSend" is-open="vm.datePickerOpenStatus.dateSend"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateSend')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_postalCode">Postal Code</label>
+            <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                    ng-model="vm.project.postalCode"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                    ng-model="vm.project.city"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_street">Street</label>
+            <input type="text" class="form-control" name="street" id="field_street"
+                    ng-model="vm.project.street"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_streetNumber">Street Number</label>
+            <input type="text" class="form-control" name="streetNumber" id="field_streetNumber"
+                    ng-model="vm.project.streetNumber"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_complementStreet">Complement Street</label>
+            <input type="text" class="form-control" name="complementStreet" id="field_complementStreet"
+                    ng-model="vm.project.complementStreet"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label for="field_customerP">Customer P</label>
+            <select class="form-control" id="field_customerP" name="customerP" ng-model="vm.project.customerP" ng-options="customer as customer.id for customer in vm.customers track by customer.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

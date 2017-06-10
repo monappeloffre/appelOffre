@@ -1,0 +1,54 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "projectC",
+            "otherEntityName": "project",
+            "otherEntityRelationshipName": "customerP"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "idUser",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "registrationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "postalCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "street",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "streetNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "complementStreet",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170610142421",
+    "entityTableName": "customer",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

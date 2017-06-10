@@ -1,0 +1,93 @@
+entity Provider {
+	id Long,
+	idUser Long,
+	lastName String,
+	firstName String,
+	registrationDate LocalDate,
+	companyName String,
+	siret String,
+	interventionZone String
+}
+ 
+entity Customer {
+	id Long,
+	idUser Long,
+	lastName String,
+	firstName String,
+	registrationDate LocalDate,
+	postalCode String,
+	city String,
+	street String,
+	streetNumber String,
+	complementStreet String
+}
+  
+entity Project {
+	id Long,
+	title String,
+	description TextBlob,    
+	dateSend LocalDate,
+	postalCode String,
+	city String,
+	street String,
+	streetNumber String,
+	complementStreet String
+}
+
+entity ProjectPic{
+	id Long,
+	link String
+}
+entity Activity {
+	id Long,
+	name String  
+}
+  
+entity Registration {
+	id Long,
+	subcriptionDate LocalDate
+}
+  
+entity ProviderEligibility {
+	id Long
+}
+
+entity Quote {
+	id Long,
+	file String
+}
+  
+entity Review {
+	id Long,
+	text TextBlob,
+	rate Integer
+}
+
+entity ProjectActivity{
+	id Long
+}
+
+entity ProviderActivity{
+	id Long
+}
+
+relationship OneToOne {
+	Quote{reviewQ} to Review{quoteR}
+}
+  
+relationship OneToMany {
+	Provider{quoteP} to Quote{providerQ},
+	Project{quotePR} to Quote{projectQU},
+	Customer{projectC} to Project{customerP},
+	Project{providerEligibilityP} to ProviderEligibility{projectPR},
+	Provider{providerEligibilityPRO} to ProviderEligibility{providerEL},
+	Project{projectactivityPROJECT} to ProjectActivity{projectACTIVITY},
+	Provider{providerativityPROVIDER} to ProviderActivity{providerProviderativity},
+	Activity{providerActivityACTIVITY} to ProviderActivity{activityProvider},
+	Activity{projectActivityACTIVITY} to ProjectActivity{activityProject}
+}
+ 
+relationship ManyToOne{
+	Registration{providerRE} to Provider{registrationPROVIDER},  
+	ProjectPic{projectPIC} to Project{project_picPROJET}
+}
