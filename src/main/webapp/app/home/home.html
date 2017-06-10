@@ -1,41 +1,78 @@
-<div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1>Welcome, Java Hipster!</h1>
-            <p class="lead">This is your homepage</p>
 
-            <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true">
-                    You are logged in as user "{{vm.account.login}}".
-                </div>
+<meta charset="UTF-8">
+ <div class="row">
+ <span>
+ <label>
+ Bienvenue sur le site MonAppelOffre.com vous pouvez gratuitement cree
+                 une demande qui sera envoyer a nos partenaire afin
+  				qu'un devis sois rediger dans les plus bref delais.
+  </label> 
+  </span>
+	</div>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
+<div style="clear:both; "></div>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-                </div>
-            </div>
+<div style="text-align:center" class="row">
+<br>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/budget.png">
+			<span>Tarif adapté à votre budget</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/histo.png">
+			<span>Gagner du temps</span>			
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/impression.png">
+			<span>Des documents qui ont de l'allure</span>
+		</div>
+		<div class="col-sm-3  pictos-textes-blocs">
+			<img alt="" src="./content/images/assistance.png">
+			<span>Comparer vos devis</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/maj.png">
+			<span>Consulter les appels d'offre</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/biblio.png">
+			<span>Demande garentis</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/deploiement.png">
+			<span>Déploiement facile &amp; assisté</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/users.png">
+			<span>Acceder à des pros du BTP, des aide à la personnes et des cours particuliers</span>
+		</div>
+		<div class="col-sm-3 pictos-textes-blocs">
+			<img alt="" src="./content/images/facile.png">
+			<span>Utilisation facile &amp; intuitive</span>
+		</div>
+</div>
 
-            <p>
-                If you have any question on JHipster:
-            </p>
+<style>
+.bxslider li
+{
+float: left; 
+list-style: none; 
+position: relative; 
+width: 850px;
+}
+</style>
 
-            <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank" rel="noopener">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
-            </ul>
+<script>
+$('.bxslider').bxSlider({
+  mode: 'fade',
+  captions: true
+});
+</script>
 
-            <p>
-             <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">Github</a>!
-            </p>
-        </div>
-    </div>
+<div class="row col-sm-offset-3" >
+<ul class="bxslider">
+  <li><img  src="./content/images/users.png" title="Funky roots" /></li>
+  <li><img  src="./content/images/deploiement.png" title="The long and winding road" /></li>
+  <li><img  src="./content/images/assistance.png" title="Happy trees" /></li>
+</ul>
 </div>

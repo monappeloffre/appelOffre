@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>fr.monappeloffre.app</groupId>
-    <artifactId>mon-appel-offre</artifactId>
+    <artifactId>monappeloffre</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Mon Appel Offre</name>

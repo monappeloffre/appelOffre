@@ -10,7 +10,9 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/jquery.bxslider/jquery.bxslider.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
@@ -32,7 +34,7 @@
         </div>
 
         <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+            <p data-translate="footer"></p>
         </div>
     </div>
     <noscript>
@@ -60,6 +62,7 @@
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery.bxslider/jquery.bxslider.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -239,6 +242,16 @@
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+    
+	<script src="app/home_eligibleProjects/home_eligibleProjects.state.js"></script>
+	<script src="app/home_eligibleProjects/home_eligibleProjects.controller.js"></script>
+	<script src="app/home_eligibleProjects/project_eligibleProjects.service.js"></script>
+	<script src="app/home_spe/home_spe.state.js"></script>
+	<script src="app/home_spe/home_spe.controller.js"></script>
+	<script src="app/viewProject/viewProject.state.js"></script>
+	<script src="app/viewProject/viewProject.controller.js"></script>
+	<script src="app/viewquote/viewquote.state.js"></script>
+	<script src="app/viewquote/viewquote.controller.js"></script>
 
 </body>
 </html>
