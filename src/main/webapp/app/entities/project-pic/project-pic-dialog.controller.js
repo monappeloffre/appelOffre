@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.projectPic = entity;
+        vm.fileToUpload = null;
         vm.clear = clear;
         vm.save = save;
         vm.projects = Project.query();
@@ -22,6 +23,10 @@
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }
+        
+        vm.DefineFileToUpload= function(files){
+			vm.fileToUpload=files
+		}
 
         function save () {
             vm.isSaving = true;

@@ -2,18 +2,22 @@ package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.monappeloffre.app.domain.Provider;
-
+import fr.monappeloffre.app.domain.User;
 import fr.monappeloffre.app.repository.ProviderRepository;
+import fr.monappeloffre.app.repository.UserRepository;
+import fr.monappeloffre.app.security.SecurityUtils;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +37,10 @@ public class ProviderResource {
     public ProviderResource(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
     }
+    
+    //Ajout du repository pour pouvoir connaitre l'id de la personne loggé
+	@Autowired
+	UserRepository userRepository;
 
     /**
      * POST  /providers : Create a new provider.
@@ -48,6 +56,18 @@ public class ProviderResource {
         if (provider.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new provider cannot already have an ID")).body(null);
         }
+        
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+        
+        provider.setIdUser(idUser);
+        provider.setRegistrationDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        
         Provider result = providerRepository.save(provider);
         return ResponseEntity.created(new URI("/api/providers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

@@ -1,7 +1,10 @@
 package fr.monappeloffre.app.repository;
 
+import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.domain.Provider;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 
@@ -12,5 +15,8 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider,Long> {
+	
+	//methode permettant de pouvoir recuperer les provider par rapport au idUser
+	public Provider findByidUser(Long idUser);
     
 }

@@ -2,18 +2,23 @@ package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.monappeloffre.app.domain.Customer;
-
+import fr.monappeloffre.app.domain.User;
 import fr.monappeloffre.app.repository.CustomerRepository;
+import fr.monappeloffre.app.repository.UserRepository;
+import fr.monappeloffre.app.security.SecurityUtils;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +38,10 @@ public class CustomerResource {
     public CustomerResource(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+    
+    //Ajout du repository pour pouvoir connaitre l'id de la personne loggé
+	@Autowired
+	UserRepository userRepository;
 
     /**
      * POST  /customers : Create a new customer.
@@ -48,6 +57,17 @@ public class CustomerResource {
         if (customer.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new customer cannot already have an ID")).body(null);
         }
+        
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+        
+        customer.setIdUser(idUser);
+        customer.setRegistrationDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         Customer result = customerRepository.save(customer);
         return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

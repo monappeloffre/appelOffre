@@ -2,18 +2,26 @@ package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.monappeloffre.app.domain.Project;
-
+import fr.monappeloffre.app.domain.Provider;
+import fr.monappeloffre.app.domain.ProviderActivity;
+import fr.monappeloffre.app.domain.User;
 import fr.monappeloffre.app.repository.ProjectRepository;
+import fr.monappeloffre.app.repository.ProviderRepository;
+import fr.monappeloffre.app.repository.UserRepository;
+import fr.monappeloffre.app.security.SecurityUtils;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +41,11 @@ public class ProjectResource {
     public ProjectResource(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
+    
+	@Autowired
+	ProviderRepository providerRepository;
+	@Autowired
+	UserRepository userRepository;
 
     /**
      * POST  /projects : Create a new project.
@@ -115,4 +128,30 @@ public class ProjectResource {
         projectRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+	@GetMapping("/eligiblePojects")
+	@Timed
+	@Transactional
+	public List<Project> getEligibleProjects() {
+		log.debug("REST request to get eligible Projects");
+		//providerRepository.findByidUser((long) 4);
+		//Provider curr = providerRepository.findOne((long) 2);
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+
+		log.debug("id User logged : "+idUser);
+		Provider curr = providerRepository.findByidUser(idUser);
+		//instancier une liste
+		List<Long> activityIds = new ArrayList<>();
+		// parcourir les providerActivity 
+		for(ProviderActivity providerActivity : curr.getProviderativityPROVIDERS()){
+			activityIds.add(providerActivity.getActivityProvider().getId());
+		}
+		List<Project> projects = projectRepository.findByProjectactivityPROJECTS_ActivityProjectIdIn(activityIds);
+		return projects;
+	}
 }
