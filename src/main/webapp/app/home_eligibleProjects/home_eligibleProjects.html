@@ -11,20 +11,18 @@
 	</div>
 	<br/>
 	
-	<div class="col-sm-3">
-          <img ng-src="data:image/JPEG;base64,{{it.images}}"style="max-height: 200px;" alt="photo image">
+	<div ng-repeat="image in vm.eligibleProjects.projectpicPROJETS">
+		<div class="col-sm-3">
+	          <img ng-src="{{image.link}}" style="max-height: 200px;" alt="photo image">
+	    </div>
     </div>
     <div class="col-sm-offset-1 col-sm-6">
     Information client :
     <br>
-	nom client :<span>{{it.customerP.lastName}}</span>
-     prenom client :<span>{{it.customerP.firstName}}</span>
-     nom client :<span>{{it.customerP.mail}}</span>                
-     code postal :<span>{{it.customerP.postalCode}}</span>
-        ville:<span>{{it.customerP.city}}</span>
-         rue:<span>{{it.customerP.street}}</span>
-           numero rue :<span>{{it.customerP.streetNumber}}</span>
-          complement adresse :<span>{{it.customerP.complementStreet}}</span>
+	client :<span>{{it.customerP.lastName}} {{it.customerP.firstName}}</span>     
+     Adresse :<span>{{it.customerP.streetNumber}} {{it.customerP.street}}</span>
+     <span>{{it.customerP.complementStreet}}</span>
+      <span>{{it.customerP.postalCode}} {{it.customerP.city}}</span>
           <br>
           <INPUT TYPE="file" accept="" ng-click="" NAME="Submit" VALUE="Deposer un devis">
 		<br>

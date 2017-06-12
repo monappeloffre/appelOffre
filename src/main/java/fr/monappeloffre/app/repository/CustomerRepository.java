@@ -1,6 +1,8 @@
 package fr.monappeloffre.app.repository;
 
 import fr.monappeloffre.app.domain.Customer;
+import fr.monappeloffre.app.domain.Provider;
+
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -12,5 +14,7 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
-    
+
+	//methode permettant de pouvoir recuperer le customer par rapport au idUser
+	public Customer findByidUser(Long idUser);
 }

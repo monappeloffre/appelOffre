@@ -1,0 +1,30 @@
+
+<div ng-repeat="it in vm.myProjects">
+	<div class="row" style="border : solid 1px grey">
+	
+	
+	
+		<div>
+			<div>
+			Titre:<span>{{it.title}}</span><br>
+			Description du projet:<span>{{it.description}}</span>
+			</div>
+			<br/>
+				
+			<div class="col-sm-3">
+				<img ng-src="data:image/JPEG;base64,{{it.images}}"style="max-height: 200px;" alt="photo image">
+				</div>
+				<div class="col-sm-offset-1 col-sm-6">
+				Adresse demande :
+				<br>
+				<span>{{it.streetNumber}} {{it.street}}</span>
+				<span>{{it.complementStreet}}</span>              
+				<span>{{it.postalCode}} {{it.city}}</span>
+			</div>
+			<br>
+		</div>
+		<br>
+	
+	
+	</div>
+</div>

@@ -1,10 +1,14 @@
 package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import fr.monappeloffre.app.domain.Customer;
 import fr.monappeloffre.app.domain.Project;
+import fr.monappeloffre.app.domain.ProjectPic;
 import fr.monappeloffre.app.domain.Provider;
 import fr.monappeloffre.app.domain.ProviderActivity;
 import fr.monappeloffre.app.domain.User;
+import fr.monappeloffre.app.repository.CustomerRepository;
 import fr.monappeloffre.app.repository.ProjectRepository;
 import fr.monappeloffre.app.repository.ProviderRepository;
 import fr.monappeloffre.app.repository.UserRepository;
@@ -21,8 +25,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -46,6 +53,8 @@ public class ProjectResource {
 	ProviderRepository providerRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	CustomerRepository customerRepository;
 
     /**
      * POST  /projects : Create a new project.
@@ -61,6 +70,9 @@ public class ProjectResource {
         if (project.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project cannot already have an ID")).body(null);
         }
+        //Date du jour du système
+        project.setDateSend(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        
         Project result = projectRepository.save(project);
         return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -152,6 +164,26 @@ public class ProjectResource {
 			activityIds.add(providerActivity.getActivityProvider().getId());
 		}
 		List<Project> projects = projectRepository.findByProjectactivityPROJECTS_ActivityProjectIdIn(activityIds);
+		return projects;
+	}
+	
+	//Obtenir tous mes projets (Customer connecté)
+	@GetMapping("/myProjects")
+	@Timed
+	@Transactional
+	public List<Project> getmyProjects() {
+		log.debug("REST request to get all my Projects (customer)");
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+
+		log.debug("id User logged : "+idUser);
+		Customer customer = customerRepository.findByidUser(idUser);
+		List<Project> projects = projectRepository.findBycustomerP(customer);
 		return projects;
 	}
 }

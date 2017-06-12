@@ -3,11 +3,11 @@
 
     angular
         .module('monAppelOffreApp')
-        .controller('home_eligibleProjectsController', home_eligibleProjectsController);
+        .controller('home_myProjectsController', home_myProjectsController);
 
-    home_eligibleProjectsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'EligibleProject'];
+    home_myProjectsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'myProjects'];
 
-    function home_eligibleProjectsController ($scope, Principal, LoginService, $state, EligibleProject) {
+    function home_myProjectsController ($scope, Principal, LoginService, $state, myProjects) {
         var vm = this;
 
         vm.account = null;
@@ -15,8 +15,8 @@
         vm.login = LoginService.open;
         vm.register = register;
         
-        // Ajouter la liste des projets eligibles dans le model d'Angular. Par defaut liste vide
-        vm.eligibleProjects = [];
+        // Ajouter la liste des projets eligibles dans le model d'Angular. Par defaut c'est liste vide
+        vm.myProjects = [];
         
         $scope.$on('authenticationSuccess', function() {
             getAccount();
@@ -24,14 +24,13 @@
 
         getAccount();
         
-        getEligibleProjects();
+        getMyProjects();
         
         // Fonction qui ramene les projets elegible depuis le controller SpringMVC (ProjectResource), et appeler la methode /api/eligibleProjects
         // Le JSON retournee va etre affecte au model vm.eligibleProjects = [];
-        function getEligibleProjects() {
-        	EligibleProject.query(function(result) {
-                vm.eligibleProjects = result;
-                console.log (vm.eligibleProjects) ;
+        function getMyProjects() {
+        	myProjects.query(function(result) {
+                vm.myProjects = result;
             });
         }
 
