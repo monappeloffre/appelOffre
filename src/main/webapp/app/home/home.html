@@ -1,4 +1,9 @@
-
+<div ng-switch="vm.isAuthenticated()">
+<div ng-switch-when="true">
+<span has-authority="ROLE_ADMIN"> Mode admin</span>
+<h1>Hello, {{vm.account.login}}</h1>
+</div>
+</div>
 <meta charset="UTF-8">
  <div class="row">
  <span>

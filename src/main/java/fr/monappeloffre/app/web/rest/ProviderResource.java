@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +67,7 @@ public class ProviderResource {
 		}
         
         provider.setIdUser(idUser);
-        provider.setRegistrationDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        provider.setRegistrationDate(LocalDate.now());
         
         Provider result = providerRepository.save(provider);
         return ResponseEntity.created(new URI("/api/providers/" + result.getId()))

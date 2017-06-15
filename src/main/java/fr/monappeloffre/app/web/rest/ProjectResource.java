@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +72,7 @@ public class ProjectResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project cannot already have an ID")).body(null);
         }
         //Date du jour du système
-        project.setDateSend(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        project.setDateSend(LocalDate.now());
         
         Project result = projectRepository.save(project);
         return ResponseEntity.created(new URI("/api/projects/" + result.getId()))

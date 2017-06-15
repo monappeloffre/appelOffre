@@ -1,19 +1,25 @@
 package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.monappeloffre.app.domain.ProjectPic;
 
+import fr.monappeloffre.app.domain.Project;
+import fr.monappeloffre.app.domain.ProjectPic;
+import fr.monappeloffre.app.repository.CustomerRepository;
 import fr.monappeloffre.app.repository.ProjectPicRepository;
+import fr.monappeloffre.app.repository.ProjectRepository;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +39,9 @@ public class ProjectPicResource {
     public ProjectPicResource(ProjectPicRepository projectPicRepository) {
         this.projectPicRepository = projectPicRepository;
     }
+    
+	@Autowired
+    ProjectRepository projectRepository;
 
     /**
      * POST  /project-pics : Create a new projectPic.
@@ -112,7 +121,31 @@ public class ProjectPicResource {
     @Timed
     public ResponseEntity<Void> deleteProjectPic(@PathVariable Long id) {
         log.debug("REST request to delete ProjectPic : {}", id);
+//        ProjectPic picture = projectPicRepository.findOne(id);
+//        try{
+//        	
+//	        //String fileDir = System.getProperty("user.dir")+"\\src\\main\\webapp"+picture.getLink();
+//	        String fileDir = Paths.get("/src/main/webapp/"+picture.getLink()).toFile().getAbsolutePath();
+//        	fileDir = fileDir.replace('/', '\\');
+//        	Files.delete(Paths.get("/src/main/webapp/"+picture.getLink()));
+//	        log.debug("dir file to delete : "+fileDir);
+//
+//        	new File(fileDir).delete();
+//        }catch(Exception e)
+//        {
+//        	log.debug(e.getMessage());
+//        }
         projectPicRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    
+    @PostMapping("/get-photo")
+    @Timed
+    public List<ProjectPic> getphoto(@RequestParam("idProject") Long idProject) throws URISyntaxException {
+        Project project = projectRepository.findOne(idProject);
+        
+        log.debug("id du project:" + project.getId());
+        
+        return projectPicRepository.findByprojectPIC(project);
     }
 }

@@ -12,7 +12,14 @@
 			<br/>
 				
 			<div class="col-sm-3">
-				<img ng-src="data:image/JPEG;base64,{{it.images}}"style="max-height: 200px;" alt="photo image">
+			
+				
+					<div ng-repeat="photo in vm.photos2">
+						<span ng-if="photo.idproject == it.id == true">
+							<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
+						</span>
+					</div>
+
 				</div>
 				<div class="col-sm-offset-1 col-sm-6">
 				Adresse demande :

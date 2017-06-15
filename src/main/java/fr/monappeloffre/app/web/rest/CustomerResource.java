@@ -67,7 +67,7 @@ public class CustomerResource {
 		}
         
         customer.setIdUser(idUser);
-        customer.setRegistrationDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        customer.setRegistrationDate(LocalDate.now());
         Customer result = customerRepository.save(customer);
         return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

@@ -1,0 +1,7 @@
+<div ng-cloak>
+     <label for="file">Fichier :</label><br />
+     	<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+     		<input type="file" name="file" id="file" 
+     			onchange="angular.element(this).controller().DefineFileToUpload(this.files)"/>
+      <button ng-click=vm.uploadFiles(vm.fileToUpload,vm.fileDescription,vm.fileTitle)> Déposer</button>
+</div>
