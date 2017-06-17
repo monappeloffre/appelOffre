@@ -1,8 +1,6 @@
 package fr.monappeloffre.app.web.rest;
 
 import java.io.File;
-import java.time.LocalDate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.domain.ProjectPic;
 import fr.monappeloffre.app.repository.ProjectPicRepository;
 import fr.monappeloffre.app.repository.ProjectRepository;
+
 
 
 @RestController

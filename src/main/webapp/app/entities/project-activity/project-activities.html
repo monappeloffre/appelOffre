@@ -28,10 +28,10 @@
                 <tr ng-repeat="projectActivity in vm.projectActivities track by projectActivity.id">
                     <td><a ui-sref="project-activity-detail({id:projectActivity.id})">{{projectActivity.id}}</a></td>
                     <td>
-                        <a ui-sref="project-detail({id:projectActivity.projectACTIVITY.id})">{{projectActivity.projectACTIVITY.id}}</a>
+                        <a ui-sref="project-detail({id:projectActivity.projectACTIVITY.id})">{{projectActivity.projectACTIVITY.title}}</a>
                     </td>
                     <td>
-                        <a ui-sref="activity-detail({id:projectActivity.activityProject.id})">{{projectActivity.activityProject.id}}</a>
+                        <a ui-sref="activity-detail({id:projectActivity.activityProject.id})">{{projectActivity.activityProject.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

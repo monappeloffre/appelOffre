@@ -2,6 +2,7 @@ package fr.monappeloffre.app.repository;
 
 import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.domain.ProjectPic;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

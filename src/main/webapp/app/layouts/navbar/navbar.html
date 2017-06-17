@@ -20,16 +20,16 @@
                         <span class="hidden-sm">Accueil</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-switch-when="true"><a
+                <li ui-sref-active="active" ng-switch-when="true" ng-if="vm.isCustomer"><a
 					ui-sref="home_depot"> <span
 						class="glyphicon glyphicon-asterisk"></span> <span>Dépot</span>
 				</a></li>
 				
-                <li ui-sref-active="active" ng-switch-when="true"><a
+                <li ui-sref-active="active" ng-switch-when="true" ng-if="vm.isCustomer"><a
 					ui-sref="home_myProjects"> <span
 						class="glyphicon glyphicon-asterisk"></span> <span>Consulter mes projets (customer)</span>
 				</a></li>
-                <li ui-sref-active="active" ng-switch-when="true"><a
+                <li ui-sref-active="active" ng-switch-when="true" ng-if="vm.isProvider"><a
 					ui-sref="home_eligibleProjects"> <span
 						class="glyphicon glyphicon-asterisk"></span> <span>Consulter les projets &eacute;ligibles</span>
 				</a></li>

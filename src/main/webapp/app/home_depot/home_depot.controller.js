@@ -25,8 +25,8 @@
 		}
 		
         vm.uploadFiles = function(files,description,titre) {
-        	console.log({description});
-        	console.log({titre});
+        	console.log(description);
+        	console.log(titre);
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}

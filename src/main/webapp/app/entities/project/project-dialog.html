@@ -72,7 +72,7 @@
 
         <div class="form-group">
             <label for="field_customerP">Customer P</label>
-            <select class="form-control" id="field_customerP" name="customerP" ng-model="vm.project.customerP" ng-options="customer as customer.id for customer in vm.customers track by customer.id">
+            <select class="form-control" id="field_customerP" name="customerP" ng-model="vm.project.customerP" ng-options="customer as customer.firstName for customer in vm.customers track by customer.id">
                 <option value=""></option>
             </select>
         </div>

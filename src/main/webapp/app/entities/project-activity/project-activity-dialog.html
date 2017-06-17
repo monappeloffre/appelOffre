@@ -16,13 +16,13 @@
 
         <div class="form-group">
             <label for="field_projectACTIVITY">Project ACTIVITY</label>
-            <select class="form-control" id="field_projectACTIVITY" name="projectACTIVITY" ng-model="vm.projectActivity.projectACTIVITY" ng-options="project as project.id for project in vm.projects track by project.id">
+            <select class="form-control" id="field_projectACTIVITY" name="projectACTIVITY" ng-model="vm.projectActivity.projectACTIVITY" ng-options="project as project.title for project in vm.projects track by project.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label for="field_activityProject">Activity Project</label>
-            <select class="form-control" id="field_activityProject" name="activityProject" ng-model="vm.projectActivity.activityProject" ng-options="activity as activity.id for activity in vm.activities track by activity.id">
+            <select class="form-control" id="field_activityProject" name="activityProject" ng-model="vm.projectActivity.activityProject" ng-options="activity as activity.name for activity in vm.activities track by activity.id">
                 <option value=""></option>
             </select>
         </div>

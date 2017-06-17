@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 
 import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.domain.ProjectPic;
-import fr.monappeloffre.app.repository.CustomerRepository;
 import fr.monappeloffre.app.repository.ProjectPicRepository;
 import fr.monappeloffre.app.repository.ProjectRepository;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;

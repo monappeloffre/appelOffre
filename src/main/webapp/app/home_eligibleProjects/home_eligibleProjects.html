@@ -11,11 +11,16 @@
 	</div>
 	<br/>
 	
-	<div ng-repeat="image in vm.eligibleProjects.projectpicPROJETS">
-		<div class="col-sm-3">
-	          <img ng-src="{{image.link}}" style="max-height: 200px;" alt="photo image">
-	    </div>
-    </div>
+			<div class="col-sm-3">
+			
+				
+					<div ng-repeat="photo in vm.photos">
+						<span ng-if="photo.idproject == it.id == true">
+							<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
+						</span>
+					</div>
+
+				</div>
     <div class="col-sm-offset-1 col-sm-6">
     Information client :
     <br>
