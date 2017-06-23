@@ -1,0 +1,47 @@
+<form name="editForm" role="form" novalidate method="POST" enctype="multipart/form-data" ng-submit="vm.save()">
+	<div class="form-group">
+		<label class="control-label" for="field_title">Title</label> <input
+			type="text" class="form-control" name="title" id="field_title"
+			ng-model="vm.title" />
+	</div>
+	<div class="form-group">
+		<label class="control-label" for="field_description">Description</label>
+		<textarea class="form-control" name="description"
+			id="field_description" ng-model="vm.description"></textarea>
+	</div>	
+	
+	<!--  
+	<div class="form-group">
+		<label for="field_activity">Images</label> <input type="file" name="images" class='btn btn-default' onchange="angular.element(this).controller().setFiles(this.files)" />
+	</div>
+	
+	-->
+	
+	<div class="form-group">
+		<label for="field_activity">Images</label>
+		
+		<input type="file" name="file" id="file" onchange="angular.element(this).controller().DefineFileToUpload(this.files)" multiple/>
+		
+	</div>
+	
+	<div class="form-group">
+	
+		<label for="field_activity">Activity</label>
+	
+		<select
+			class="form-control" id="field_activity" name="activity"
+			ng-model="vm.allActivities"
+			ng-options="activity.id as activity.name for activity in vm.activities" multiple>
+			<option value=""></option>
+		</select>
+		
+	</div>
+	
+	<div class="modal-footer">
+		<button type="submit"
+			class="btn btn-primary">
+			<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+		</button>
+	</div>
+
+</form>

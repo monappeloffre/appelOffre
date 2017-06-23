@@ -9,6 +9,7 @@ import fr.monappeloffre.app.domain.Provider;
 import fr.monappeloffre.app.domain.ProviderActivity;
 import fr.monappeloffre.app.domain.User;
 import fr.monappeloffre.app.repository.CustomerRepository;
+import fr.monappeloffre.app.repository.ProjectPicRepository;
 import fr.monappeloffre.app.repository.ProjectRepository;
 import fr.monappeloffre.app.repository.ProviderRepository;
 import fr.monappeloffre.app.repository.UserRepository;
@@ -22,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -56,6 +59,8 @@ public class ProjectResource {
 	UserRepository userRepository;
 	@Autowired
 	CustomerRepository customerRepository;
+	@Autowired
+	ProjectPicRepository projectPicRepository;
 
 	/**
 	 * POST  /projects : Create a new project.
@@ -194,5 +199,56 @@ public class ProjectResource {
 		customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
 
 		return projectRepository.findBycustomerP(customer);
+	}
+	
+	@PostMapping("/create-new-project")
+	@Timed
+	public ResponseEntity<Project> createProject(@RequestParam("images") List<MultipartFile> file,
+			@RequestParam("activities") List<Long> idActivity,
+			@RequestParam("description") String description,
+			@RequestParam("title") String title
+			) throws URISyntaxException { 	
+		log.debug("REST request to save Project : {}" + title + " " + description);
+		Project project = new Project();
+		Customer customer = null;
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+
+		log.debug("id User logged : "+idUser);
+		Optional<Customer> optionalCustomer = customerRepository.findByidUser(idUser);
+		customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
+		
+		//Date du jour du système
+		project.setDateSend(LocalDate.now());
+		project.setTitle(title);
+		project.setCity(customer.getCity());
+		project.setComplementStreet(customer.getComplementStreet());
+		project.setCustomerP(customer);
+		project.setPostalCode(customer.getPostalCode());
+		project.setStreet(customer.getStreet());
+		project.setStreetNumber(customer.getStreetNumber());
+		
+		ProjectPic photo = new ProjectPic();
+		
+		try {
+			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
+			log.info("Dir to save: "+destinationFichier);
+			file.transferTo(destinationFichier);
+			photo.setLink("content/images/" + file.getOriginalFilename());
+			photo.setProjectPIC(project);
+			projectPicRepository.save(photo);
+		} catch (Exception ex) {
+			log.error("Failed to upload", ex);
+		}
+		
+		Project result = projectRepository.save(project);
+		return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
+				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
 	}
 }

@@ -21,12 +21,11 @@
        
 
 		vm.DefineFileToUpload= function(files){
-			vm.fileToUpload=files
+			vm.fileToUpload=files;
 		}
 		
-        vm.uploadFiles = function(files,description,titre) {
-        	console.log(description);
-        	console.log(titre);
+        vm.uploadFiles = function(files) {
+
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}
