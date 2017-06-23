@@ -30,11 +30,6 @@ public class ContentRestController {
 	ProjectRepository projetRepository;
 	
 	
-
-public static class ImageData {
-public String fileName;
-public byte[] data;
-}
 	@RequestMapping(
 			path="/imagesProjet",
 			//method=RequestMethod.GET, 

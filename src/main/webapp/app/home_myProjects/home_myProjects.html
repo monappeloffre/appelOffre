@@ -12,16 +12,13 @@
 			<br/>
 				
 			<div class="col-sm-3">
-			
-				
-					<div ng-repeat="photo in vm.photos">
-						<span ng-if="photo.idproject == it.id == true">
-							<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
-						</span>
-					</div>
-
+				<div ng-repeat="photo in vm.photos">
+					<span ng-if="photo.idproject == it.id == true">
+						<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
+					</span>
 				</div>
-				<div class="col-sm-offset-1 col-sm-6">
+			</div>
+			<div class="col-sm-offset-1 col-sm-6">
 				Adresse demande :
 				<br>
 				<span>{{it.streetNumber}} {{it.street}}</span>

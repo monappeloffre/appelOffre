@@ -29,8 +29,8 @@
         getMyProjects();
         
         
-        // Fonction qui ramene les projets elegible depuis le controller SpringMVC (ProjectResource), et appeler la methode /api/eligibleProjects
-        // Le JSON retournee va etre affecte au model vm.eligibleProjects = [];
+        // Fonction qui ramene les projets elegible depuis le controller SpringMVC (ProjectResource), et appeler la methode /api/myProjects
+        // Le JSON retournee va etre affecte au model vm.myProjects = [];
         function getMyProjects() {
         	myProjects.query(function(result) {
                 vm.myProjects = result;

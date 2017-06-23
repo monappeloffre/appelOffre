@@ -1,43 +1,46 @@
 
 <div ng-repeat="it in vm.eligibleProjects">
-<div class="row" style="border : solid 1px grey">
-
-
-
-<div>
-	<div>
-		Titre:<span>{{it.title}}</span><br>
-		Description du projet:<span>{{it.description}}</span>
-	</div>
-	<br/>
+	<div class="row" style="border : solid 1px grey">
 	
-			<div class="col-sm-3">
-			
+	
+	
+	<div>
+		<div>
+			Titre:<span>{{it.title}}</span><br>
+			Description du projet:<span>{{it.description}}</span>
+		</div>
+		<br/>
+		
+				<div class="col-sm-3">
 				
-					<div ng-repeat="photo in vm.photos">
-						<span ng-if="photo.idproject == it.id == true">
-							<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
-						</span>
+					
+						<div ng-repeat="photo in vm.photos">
+							<span ng-if="photo.idproject == it.id == true">
+								<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
+							</span>
+						</div>
+	
 					</div>
-
-				</div>
-    <div class="col-sm-offset-1 col-sm-6">
-    Information client :
-    <br>
-	client :<span>{{it.customerP.lastName}} {{it.customerP.firstName}}</span>     
-     Adresse :<span>{{it.customerP.streetNumber}} {{it.customerP.street}}</span>
-     <span>{{it.customerP.complementStreet}}</span>
-      <span>{{it.customerP.postalCode}} {{it.customerP.city}}</span>
-          <br>
-          <INPUT TYPE="file" accept="" ng-click="" NAME="Submit" VALUE="Deposer un devis">
-		<br>
-    </div>
-    <br>
-</div>
-<br>
-
-
-</div>
+	
+	    <div class="col-sm-offset-1 col-sm-6">
+		    <span>client :</span>
+		    <span>{{it.customerP.lastName}} {{it.customerP.firstName}}</span>
+		    <br>
+			<span>Adresse demande :</span>
+			<br>
+			<span>{{it.streetNumber}} {{it.street}}</span>
+			<span>{{it.complementStreet}}</span>              
+			<span>{{it.postalCode}} {{it.city}}</span>
+			<br>
+	          <INPUT TYPE="file" accept="" ng-click="" NAME="Submit" VALUE="Deposer un devis">
+			<br>
+		</div>
+	    <br>
+	</div>
+	<br>
+	
+	
+	</div>
 </div>
 
 
