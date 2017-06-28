@@ -5,15 +5,11 @@
 	.module('monAppelOffreApp')
 	.controller('formulaireProviderController', formulaireProviderController);
 
-	formulaireProviderController.$inject = ['$timeout', '$scope', 
-		'$stateParams',  '$q', 'Provider', 'User', 'Quote', 
-		'ProviderEligibility', 'ProviderActivity', 'Registration', 
-		'Activity','$http','entity', 'formulaireProvider'];
+	formulaireProviderController.$inject = ['$state', '$timeout', '$scope', 
+		'$stateParams',  '$q', 'Activity','$http', 'formulaireProvider'];
 
-	function formulaireProviderController ($timeout, $scope, $stateParams, 
-			$q, Provider, User, Quote, ProviderEligibility,
-			ProviderActivity, Registration, 
-			Activity,$http,entity, formulaireProvider) {
+	function formulaireProviderController ($state, $timeout, $scope, $stateParams, 
+			$q, Activity,$http, formulaireProvider) {
 		var vm = this;
 
 		vm.allActivities = []; 
@@ -55,9 +51,10 @@
     	    
     	    }).success(function(data, status, headers, config) {
     	    	console.log("success create Provider");
+    	    	$state.go('home');
     	    })
     	    .error(function(err) {
-    	    	console.log("uploading imageData ERROR", err);
+    	    	console.log("create provider ERROR", err);
     	    });
     	    
     	    

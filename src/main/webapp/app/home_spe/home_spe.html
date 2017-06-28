@@ -5,8 +5,10 @@
 
 
 <center>
-<input type="submit" value="vous etes client" ui-sref="formulaireCustomer"/>
-<input type="submit" value="vous etes prestataire" ui-sref="formulaireProvider" />
+<input type="submit" value="vous etes client" ui-sref="home_create_customer" ng-if="!vm.isCustomer"/>
+<span ng-if="vm.isCustomer">Vous etes deja inscrit comme client</span>
+<input type="submit" value="vous etes prestataire" ui-sref="home_create_provider" ng-if="!vm.isProvider"/>
+<span ng-if="vm.isProvider">Vous etes deja inscrit comme prestataire</span>
 </center>
 
 

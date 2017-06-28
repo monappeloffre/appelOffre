@@ -31,8 +31,8 @@
 					ui-sref="home_myProjects"> <span
 						class="glyphicon glyphicon-list"></span> <span>Consulter mes projets (customer)</span>
 				</a></li>
-				<li ui-sref-active="active" ng-switch-when="true"><a
-					ui-sref="formulaire"> <span
+				<li ui-sref-active="active" ng-switch-when="true" ng-if="vm.isCustomer"><a
+					ui-sref="home_create_project"> <span
 						class="glyphicon glyphicon-plus"></span> <span>Cree votre demande</span>
 				</a></li>
                 <li ui-sref-active="active" ng-switch-when="true" ng-if="vm.isProvider"><a
@@ -42,7 +42,7 @@
            
 				
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer" has-authority="ROLE_ADMIN">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>

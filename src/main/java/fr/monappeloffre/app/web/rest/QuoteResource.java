@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -175,5 +175,32 @@ public class QuoteResource {
     @Timed			
 	public List<Quote> findQuote(@RequestParam("idProject") Long idProject){
 		return quoteRepository.findByprojectQU(projectRepository.findOne(idProject));
+	}
+    
+    @PostMapping("/find-my-quote")
+    @Timed			
+	public List<Quote> findQuoteOfCurrentProvider(@RequestParam("idProjects") Long[] idProjects){
+    	List<Project> projects= new ArrayList<>();
+    	Provider provider = null;
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+
+		log.debug("id User logged : "+idUser);
+		Optional<Provider> optionalProvider = providerRepository.findByidUser(idUser);
+		provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
+		
+		for (Long idProject : idProjects)
+		{
+			projects.add(projectRepository.findOne(idProject));
+		}
+		
+		List<Quote> quotes = quoteRepository.findByProjectQUInAndProviderQ(projects, provider);
+		
+		return quotes;
 	}
 }

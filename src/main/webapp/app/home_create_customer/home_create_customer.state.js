@@ -8,14 +8,12 @@
 	stateConfig.$inject = ['$stateProvider'];
 
 	function stateConfig($stateProvider) {
-		$stateProvider
-		.state('formulaireCustomer', {
+		$stateProvider.state('home_create_customer', {
 			parent: 'app',
-			url: '/formulaireCustomer/new',
+			url: '/home_create_customer',
 			data: {
 				authorities: ['ROLE_USER']
 			},
-
 			views: {
 				'content@': {
 					templateUrl: 'app/home_create_customer/home_create_customer.html',

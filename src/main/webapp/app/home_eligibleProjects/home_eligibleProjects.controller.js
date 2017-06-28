@@ -15,6 +15,7 @@
         vm.login = LoginService.open;
         vm.register = register;
         vm.photos = [];
+        vm.quotes = [];
         vm.fileToUpload = null;
         
 		vm.DefineFileToUpload= function(files){
@@ -84,6 +85,8 @@
         		console.log("id project: " + value.id); // Todd, UK
         		getAllPhoto(value.id);
         	});
+        	
+        	getMyQuotes(projects);
         }
         
         function getAllPhoto(idProject)
@@ -113,13 +116,41 @@
 						vm.photos.push({idproject : value.projectPIC.id, link:value.link});
 		            });
 					console.log("array after push: ",vm.photos);
-					return true;
 				})
 				.error(function(err) {
-				console.log("ERROR", err);
-					return false;
+					console.log("ERROR", err);
 				});
 			}
+        }
+        
+        function getMyQuotes(listIdProjects)
+        {
+				var objectToSend = new FormData();
+				
+				angular.forEach(listIdProjects, function (value, prop, obj) {
+					objectToSend.append("idProjects", value.id);
+				});
+				
+				console.log("object envoye :",objectToSend);
+		
+				var req = $http.post('/api/find-my-quote',objectToSend, {
+
+				transformRequest: angular.identity,
+				headers: {
+					'Content-Type': undefined,
+				}
+				
+				}).success(function(data, status, headers, config) {
+					console.log("Success");
+					console.log("retour 2",data);
+					angular.forEach(data, function (value, prop, obj) {
+						vm.quotes.push({idproject : value.projectQU.id, link : value.file});
+		            });
+					console.log("array quotes after push: ",vm.quotes);
+				})
+				.error(function(err) {
+					console.log("ERROR", err);
+				});
         }
 
         function getAccount() {

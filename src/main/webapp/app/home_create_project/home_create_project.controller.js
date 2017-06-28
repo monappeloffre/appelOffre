@@ -4,12 +4,12 @@
 	angular.module('monAppelOffreApp').controller('FormulaireController',
 			FormulaireController);
 
-	FormulaireController.$inject = [ '$timeout', '$scope', '$stateParams',
+	FormulaireController.$inject = [ '$state', '$timeout', '$scope', '$stateParams',
 			'DataUtils', 'Project', 'Quote', 'ProviderEligibility',
 			'ProjectActivity', 'Customer', 'ProjectPic', 'ProviderActivity',
 			'Formulaire', 'Activity', '$http' ];
 
-	function FormulaireController($timeout, $scope, $stateParams, DataUtils,
+	function FormulaireController($state, $timeout, $scope, $stateParams, DataUtils,
 			Project, Quote, ProviderEligibility, ProjectActivity, Customer,
 			ProjectPic, ProviderActivity, Formulaire, Activity, $http) {
 
@@ -61,11 +61,9 @@
     	    
     	    }).success(function(data, status, headers, config) {
     	    	console.log("uploading imageData OK");
-    	    	
-
     	    	console.log("data test : " + data);
-    	  
     	    	console.log("fd test : " + fd);
+    	    	$state.go('home');
     	    	
     	    	
     	    })

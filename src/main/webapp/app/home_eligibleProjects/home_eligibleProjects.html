@@ -37,10 +37,18 @@
 			<span>{{it.postalCode}} </span>
 			<span>{{it.city}}</span>
 			<br>
-	          <INPUT TYPE="file" onchange="angular.element(this).controller().DefineFileToUpload(this.files)">
-	          <button  ng-click="vm.deposerDevis(it.id)">Deposer un devis
-	           <span class="glyphicon glyphicon-save">
-	          </button>
+			
+			<div ng-repeat="quote in vm.quotes">
+				<span ng-if="quote.idproject == it.id == true">
+					<span>devis envoye : <a href="{{quote.link}}">Devis</a></span>
+					 <span class="glyphicon glyphicon-save">							
+				</span>
+			</div>
+			<INPUT TYPE="file" onchange="angular.element(this).controller().DefineFileToUpload(this.files)">
+			<button  ng-click="vm.deposerDevis(it.id)">Deposer un devis
+			 <span class="glyphicon glyphicon-save">
+			</button>	
+	          
 	        
 			<br>
 		</div>

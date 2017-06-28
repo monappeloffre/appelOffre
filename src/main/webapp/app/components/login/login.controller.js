@@ -5,9 +5,9 @@
         .module('monAppelOffreApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', '$window'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance) {
+    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance, $window) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -55,6 +55,8 @@
                     Auth.resetPreviousState();
                     $state.go(previousState.name, previousState.params);
                 }
+                
+                $state.reload();
             }).catch(function () {
                 vm.authenticationError = true;
             });
