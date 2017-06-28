@@ -25,6 +25,13 @@
 				<span>{{it.complementStreet}}</span>              
 				<span>{{it.postalCode}} {{it.city}}</span>
 			</div>
+			
+			<div ng-repeat="quote in vm.quotes">
+					<span ng-if="quote.idproject == it.id == true">
+						<span>{{quote.provider}} : <a href="{{quote.link}}">Devis</a></span>
+							
+					</span>
+				</div>
 			<br>
 		</div>
 		<br>

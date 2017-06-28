@@ -24,18 +24,18 @@
 			vm.fileToUpload=files;
 		}
 		
-        vm.uploadFiles = function(files) {
+        vm.uploadFiles = function() {
 
-        	if (!files || files.length === 0) {
+        	if (!vm.fileToUpload || vm.fileToUpload.length === 0) {
             	console.log("nothing to upload");
         	}
         	else{
         	console.log("uploading..");
        	 	var fd = new FormData();
        	 	//Take the first selected file
-       	 	fd.append("file",files[0]);
+       	 	fd.append("file",vm.fileToUpload[0]);
        	    //$http.get('http://localhost:8080/#/depot')
-       	 	console.log(files.length);
+       	 	console.log(vm.fileToUpload.length);
        	       
        	        /*var reqImageData = {
        			fileName: files[0].fileName

@@ -2,13 +2,17 @@ package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import fr.monappeloffre.app.domain.Activity;
 import fr.monappeloffre.app.domain.Customer;
 import fr.monappeloffre.app.domain.Project;
+import fr.monappeloffre.app.domain.ProjectActivity;
 import fr.monappeloffre.app.domain.ProjectPic;
 import fr.monappeloffre.app.domain.Provider;
 import fr.monappeloffre.app.domain.ProviderActivity;
 import fr.monappeloffre.app.domain.User;
+import fr.monappeloffre.app.repository.ActivityRepository;
 import fr.monappeloffre.app.repository.CustomerRepository;
+import fr.monappeloffre.app.repository.ProjectActivityRepository;
 import fr.monappeloffre.app.repository.ProjectPicRepository;
 import fr.monappeloffre.app.repository.ProjectRepository;
 import fr.monappeloffre.app.repository.ProviderRepository;
@@ -61,6 +65,10 @@ public class ProjectResource {
 	CustomerRepository customerRepository;
 	@Autowired
 	ProjectPicRepository projectPicRepository;
+	@Autowired
+	ActivityRepository activityRepository;
+	@Autowired
+	ProjectActivityRepository projectActivityRepository;
 
 	/**
 	 * POST  /projects : Create a new project.
@@ -203,7 +211,7 @@ public class ProjectResource {
 	
 	@PostMapping("/create-new-project")
 	@Timed
-	public ResponseEntity<Project> createProject(@RequestParam("images") List<MultipartFile> file,
+	public ResponseEntity<Project> createProject(@RequestParam("images") MultipartFile[] picFile,
 			@RequestParam("activities") List<Long> idActivity,
 			@RequestParam("description") String description,
 			@RequestParam("title") String title
@@ -225,6 +233,7 @@ public class ProjectResource {
 		
 		//Date du jour du système
 		project.setDateSend(LocalDate.now());
+		project.setDescription(description);
 		project.setTitle(title);
 		project.setCity(customer.getCity());
 		project.setComplementStreet(customer.getComplementStreet());
@@ -233,20 +242,33 @@ public class ProjectResource {
 		project.setStreet(customer.getStreet());
 		project.setStreetNumber(customer.getStreetNumber());
 		
-		ProjectPic photo = new ProjectPic();
+		Project result = projectRepository.save(project);
 		
-		try {
-			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
-			log.info("Dir to save: "+destinationFichier);
-			file.transferTo(destinationFichier);
-			photo.setLink("content/images/" + file.getOriginalFilename());
-			photo.setProjectPIC(project);
-			projectPicRepository.save(photo);
-		} catch (Exception ex) {
-			log.error("Failed to upload", ex);
+		//Ajouter des photos au projet
+		for(MultipartFile file : picFile){
+			ProjectPic photo = new ProjectPic();
+			try {
+				File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
+				log.info("Dir to save: "+destinationFichier);
+				file.transferTo(destinationFichier);
+				photo.setLink("content/images/" + file.getOriginalFilename());
+				photo.setProjectPIC(result);
+				projectPicRepository.save(photo);
+			} catch (Exception ex) {
+				log.error("Failed to upload", ex);
+			}
 		}
 		
-		Project result = projectRepository.save(project);
+		//Ajouter des activitées au projet
+		for(Long idActivitee : idActivity){
+			Activity activity = activityRepository.findOne(idActivitee);
+			ProjectActivity projectActivity = new ProjectActivity();
+			projectActivity.setActivityProject(activity);
+			projectActivity.setProjectACTIVITY(result);
+			projectActivityRepository.save(projectActivity);
+		}
+		
+		
 		return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);

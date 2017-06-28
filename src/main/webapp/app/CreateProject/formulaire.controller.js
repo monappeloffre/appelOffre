@@ -31,7 +31,6 @@
 		function loadAll() {
 			Activity.query(function(result) {
 				vm.activities = result;
-				vm.searchQuery = null;
 			});
 		}
 		
@@ -42,10 +41,13 @@
 			
        	 	var fd = new FormData();
        	 	
-       	 	fd.append("images",vm.fileToUpload);
+			for (var i = 0; i < vm.fileToUpload.length; i++) {
+				fd.append("images", vm.fileToUpload[i]);
+			}
+       	 	//fd.append("images",vm.fileToUpload);
        	 	fd.append("activities", vm.allActivities);
        	 	fd.append("description", vm.description);
-       	 	fd.append("title", vm.titre);
+       	 	fd.append("title", vm.title);
 
    	        
     	    var req = $http.post('/api/create-new-project',fd, { 

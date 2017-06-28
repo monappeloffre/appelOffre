@@ -16,6 +16,7 @@
         vm.register = register;
         vm.openFile = DataUtils.openFile;
         vm.photos = [];
+        vm.quotes = [];
         
         // Ajouter la liste des projets eligibles dans le model d'Angular. Par defaut c'est liste vide
         vm.myProjects = [];
@@ -43,6 +44,7 @@
         	angular.forEach(projects, function (value, prop, obj) {
         		console.log("id project: " + value.id); // Todd, UK
         		getAllPhoto(value.id);
+        		getAllQuote(value.id);
         	});
         }
         
@@ -73,6 +75,42 @@
 						vm.photos.push({idproject : value.projectPIC.id, link:value.link});
 		            });
 					console.log("array after push: ",vm.photos);
+					return true;
+				})
+				.error(function(err) {
+				console.log("ERROR", err);
+					return false;
+				});
+			}
+        }
+        
+        function getAllQuote(idProject)
+        {
+        	if (idProject==0) {
+				console.log("Pas de project");
+			}
+			else{
+				console.log("recherche devis..");
+				var objectToSend = new FormData();
+		
+				objectToSend.append("idProject", idProject);
+				
+				console.log("object envoye :",objectToSend);
+		
+				var req = $http.post('/api/find-quote',objectToSend, {
+
+				transformRequest: angular.identity,
+				headers: {
+				'Content-Type': undefined,
+				}
+				
+				}).success(function(data, status, headers, config) {
+					console.log("Success");
+					console.log("retour 2",data);
+					angular.forEach(data, function (value, prop, obj) {
+						vm.quotes.push({idproject : value.projectQU.id, link : value.file, provider : value.providerQ.companyName});
+		            });
+					console.log("array quotes after push: ",vm.quotes);
 					return true;
 				})
 				.error(function(err) {

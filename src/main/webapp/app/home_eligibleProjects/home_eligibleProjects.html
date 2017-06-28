@@ -32,7 +32,8 @@
 			<span>{{it.complementStreet}}</span>              
 			<span>{{it.postalCode}} {{it.city}}</span>
 			<br>
-	          <INPUT TYPE="file" accept="" ng-click="" NAME="Submit" VALUE="Deposer un devis">
+	          <INPUT TYPE="file" onchange="angular.element(this).controller().DefineFileToUpload(this.files)">
+	          <button ng-click="vm.deposerDevis(it.id)">Déposer un devis</button>
 			<br>
 		</div>
 	    <br>

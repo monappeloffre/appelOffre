@@ -37,8 +37,8 @@
 				.success(function(data, status, headers, config) {
 					console.log("retour : " + data);
 					vm.allRole = data;
-					vm.isCustomer = vm.allRole.some(x => x === "customer");
-					vm.isProvider = vm.allRole.some(x => x === "provider");
+					vm.isCustomer = vm.allRole.indexOf("customer") !== -1;
+					vm.isProvider = vm.allRole.indexOf("provider") !== -1;
 					console.log("allrole : " + vm.allRole);
 					console.log("isCustomer : " + vm.isCustomer);
 					console.log("isProvider : " + vm.isProvider);

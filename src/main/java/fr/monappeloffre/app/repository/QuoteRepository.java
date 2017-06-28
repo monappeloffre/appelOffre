@@ -1,7 +1,10 @@
 package fr.monappeloffre.app.repository;
 
+import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.domain.Quote;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 
@@ -12,5 +15,5 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 @Repository
 public interface QuoteRepository extends JpaRepository<Quote,Long> {
-    
+    public List<Quote> findByprojectQU(Project project);
 }

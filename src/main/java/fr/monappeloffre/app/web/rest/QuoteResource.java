@@ -1,16 +1,28 @@
 package fr.monappeloffre.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.monappeloffre.app.domain.Quote;
 
+import fr.monappeloffre.app.domain.Customer;
+import fr.monappeloffre.app.domain.Project;
+import fr.monappeloffre.app.domain.ProjectPic;
+import fr.monappeloffre.app.domain.Provider;
+import fr.monappeloffre.app.domain.Quote;
+import fr.monappeloffre.app.domain.User;
+import fr.monappeloffre.app.repository.ProjectRepository;
+import fr.monappeloffre.app.repository.ProviderRepository;
 import fr.monappeloffre.app.repository.QuoteRepository;
+import fr.monappeloffre.app.repository.UserRepository;
+import fr.monappeloffre.app.security.SecurityUtils;
 import fr.monappeloffre.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -33,6 +45,13 @@ public class QuoteResource {
     public QuoteResource(QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
+    
+    @Autowired
+    ProjectRepository projectRepository;
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	ProviderRepository providerRepository;
 
     /**
      * POST  /quotes : Create a new quote.
@@ -115,4 +134,46 @@ public class QuoteResource {
         quoteRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    @PostMapping("/add-quote")
+    @Timed			
+	public void uploadQuote(
+			@RequestParam("file") MultipartFile file, 
+			@RequestParam("idProject") Long idProject
+			){
+    	
+    	Provider provider = null;
+		User currentUserLogged;
+		Long idUser = 1l;
+		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		if (optional.isPresent()) {
+			currentUserLogged = optional.get();
+			idUser = currentUserLogged.getId();
+		}
+
+		log.debug("id User logged : "+idUser);
+		Optional<Provider> optionalProvider = providerRepository.findByidUser(idUser);
+		provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
+		Quote quote = new Quote();
+		Project project = projectRepository.findOne(idProject);
+		
+		try {
+			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/devis/"+file.getOriginalFilename());
+			log.info("Dir to save: "+destinationFichier);
+			file.transferTo(destinationFichier);
+			quote.setFile("content/devis/" + file.getOriginalFilename());
+			quote.setProjectQU(project);
+			quote.setProviderQ(provider);
+			quoteRepository.save(quote);
+		} catch (Exception ex) {
+			log.error("Failed to upload", ex);
+		}
+		
+	}
+    
+    @PostMapping("/find-quote")
+    @Timed			
+	public List<Quote> findQuote(@RequestParam("idProject") Long idProject){
+		return quoteRepository.findByprojectQU(projectRepository.findOne(idProject));
+	}
 }

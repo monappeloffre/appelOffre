@@ -15,6 +15,48 @@
         vm.login = LoginService.open;
         vm.register = register;
         vm.photos = [];
+        vm.fileToUpload = null;
+        
+		vm.DefineFileToUpload= function(files){
+			vm.fileToUpload=files;
+		}
+        
+        vm.deposerDevis = function(idProject){
+        	if (!vm.fileToUpload || vm.fileToUpload.length === 0) {
+            	console.log("nothing to upload");
+        	}
+        	else{
+				console.log("dépot de devis pour le projet : " + idProject);
+				var objectToSend = new FormData();
+		
+				objectToSend.append("idProject", idProject);
+				objectToSend.append("file",vm.fileToUpload[0]);;
+				
+				
+				console.log("object envoye :",objectToSend);
+		
+				var req = $http.post('/api/add-quote',objectToSend, {
+	
+				transformRequest: angular.identity,
+				headers: {
+				'Content-Type': undefined,
+				}
+				
+				}).success(function(data, status, headers, config) {
+					console.log("Success");
+					console.log("retour 2",data);
+					angular.forEach(data, function (value, prop, obj) {
+						vm.photos.push({idproject : value.projectPIC.id, link:value.link});
+		            });
+					console.log("array after push: ",vm.photos);
+					return true;
+				})
+				.error(function(err) {
+				console.log("ERROR", err);
+					return false;
+				});
+        	}
+        }
         
         // Ajouter la liste des projets eligibles dans le model d'Angular. Par defaut liste vide
         vm.eligibleProjects = [];
