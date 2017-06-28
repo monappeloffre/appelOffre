@@ -1,6 +1,7 @@
-<form name="createCustomerForm" role="form" novalidate  ng-submit="vm.save()">
-	<div class="form-group">
-		 <div class="form-group">
+<form name="editForm" role="form" method="POST" novalidate enctype="multipart/form-data" ng-submit="vm.save()">    
+    <div class="modal-body">        
+        
+        <div class="form-group">
             <label class="control-label" for="field_lastName">Last Name</label>
             <input type="text" class="form-control" name="lastName" id="field_lastName"
                     ng-model="vm.customer.lastName"
@@ -12,7 +13,9 @@
                     ng-model="vm.customer.firstName"
                     />
         </div>
- 	<div class="form-group">
+        
+        
+        <div class="form-group">
             <label class="control-label" for="field_postalCode">Postal Code</label>
             <input type="text" class="form-control" name="postalCode" id="field_postalCode"
                     ng-model="vm.customer.postalCode"
@@ -42,16 +45,16 @@
                     ng-model="vm.customer.complementStreet"
                     />
         </div>
-        
 
-	<div class="modal-footer">
-		<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving"
-			class="btn btn-primary">
-			<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
-		</button>
-	</div>
-
+    </div>
+    <div class="modal-footer">
+     
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
 </form>
+
 <style>
 
 body, html{
@@ -89,7 +92,7 @@ form{
 	
 }
 
-input, textarea{
+input, textarea,button{
 	width: 300px;	
 	border: none;
 	border-radius: 20px;
@@ -148,3 +151,4 @@ label{
 
 }
 </style>
+

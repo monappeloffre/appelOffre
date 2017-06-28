@@ -3,17 +3,53 @@
 <span has-authority="ROLE_ADMIN"> Mode admin</span>
 <h1>Hello, {{vm.account.login}}</h1>
 </div>
-</div>
-<meta charset="UTF-8">
+</div><meta charset="UTF-8">
  <div class="row">
  <span>
- <label>
- Bienvenue sur le site MonAppelOffre.com vous pouvez gratuitement cree
-                 une demande qui sera envoyer a nos partenaire afin
-  				qu'un devis sois rediger dans les plus bref delais.
-  </label> 
-  </span>
+  <span class="glyphicon glyphicon-cog"></span>
+ <span class="hidden-xs-down"><FONT size="4"> 
+Bienvenue sur le site MonAppelOffre.com vous pouvez gratuitement cree une demande qui sera envoyée à nos partenaires 
+afin qu'un devis soit rédigé dans les plus brefs délais. Sur le site MonAppelOffre.com, demander des devis gratuits et sans commission. 
+Vous pouvez consulter des demandes de particuliers partout en France, que vous cherchiez des cours particuliers, des travaux, des mécaniciens, 
+l'aide à la personne, ou tout autre type de service.
+</FONT>
+</span>
+ </span>
+  
 	</div>
+	<center>
+<span><FONT size="5">  Des emplois diverses</FONT></span>
+</center>
+ <style>
+.bxslider li
+{
+float: left; 
+list-style: none; 
+position: relative; 
+width: 1000px;
+}
+</style>
+
+<script>
+$('.bxslider').bxSlider({
+ 
+  captions: true,
+  auto: true,
+  autoControls: true,
+  
+});
+</script>
+
+<div class="row col-sm-offset-0" >
+<ul class="bxslider">
+  <li><img  src="./content/images/aide.jpg" title="l'aide à la personne" /></li>
+  <li><img  src="./content/images/soutien.jpg" title="soutien scolaire" /></li>
+  <li><img  src="./content/images/traveaux.jpg" title="maçonnerie" /></li>
+  <li><img  src="./content/images/plombier.jpg" title="plombier" /></li>
+  <li><img  src="./content/images/electricien.jpg" title="electricien" /></li>
+  
+</ul>
+</div>
 
 <div style="clear:both; "></div>
 
@@ -56,31 +92,3 @@
 			<span>Utilisation facile &amp; intuitive</span>
 		</div>
 </div>
-
-<!--  
-<style>
-.bxslider li
-{
-float: left; 
-list-style: none; 
-position: relative; 
-width: 850px;
-}
-</style>
-
-<script>
-$('.bxslider').bxSlider({
-  mode: 'fade',
-  captions: true
-});
-</script>
-
-<div class="row col-sm-offset-3" >
-<ul class="bxslider">
-  <li><img  src="./content/images/users.png" title="Funky roots" /></li>
-  <li><img  src="./content/images/deploiement.png" title="The long and winding road" /></li>
-  <li><img  src="./content/images/assistance.png" title="Happy trees" /></li>
-</ul>
-</div>
-
--->

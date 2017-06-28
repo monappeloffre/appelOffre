@@ -9,7 +9,7 @@
 
 	function stateConfig($stateProvider) {
 		$stateProvider
-		.state('formulairePrvider', {
+		.state('formulaireProvider', {
 			parent: 'app',
 			url: '/formulaireProvider/new',
 			data: {

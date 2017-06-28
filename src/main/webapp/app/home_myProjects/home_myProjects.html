@@ -1,6 +1,6 @@
 
 <div ng-repeat="it in vm.myProjects">
-	<div class="row" style="border : solid 1px grey">
+	<div class="row" style="border : solid 5px grey">
 	
 	
 	
@@ -22,14 +22,15 @@
 				Adresse demande :
 				<br>
 				<span>{{it.streetNumber}} {{it.street}}</span>
-				<span>{{it.complementStreet}}</span>              
+				<span>{{it.complementStreet}}</span>
+				<br>              
 				<span>{{it.postalCode}} {{it.city}}</span>
 			</div>
 			
 			<div ng-repeat="quote in vm.quotes">
 					<span ng-if="quote.idproject == it.id == true">
 						<span>{{quote.provider}} : <a href="{{quote.link}}">Devis</a></span>
-							
+						 <span class="glyphicon glyphicon-save">							
 					</span>
 				</div>
 			<br>
@@ -39,3 +40,100 @@
 	
 	</div>
 </div>
+
+<style>
+body, html{
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Sniglet', cursive;
+}
+h1{
+	font-weight: normal;
+	font-size: 4em;
+	font-family: 'Raleway', sans-serif;
+	margin: 0 auto;
+	margin-top: 30px;
+	width: 500px;
+	color: #AFAFAF;
+	text-align: center;
+
+}
+
+#form{
+	height: 20%;	
+	background-color: #AFAFAF;
+	overflow: hidden;
+	position: relative;
+	
+}
+form{
+	margin: 0 auto;
+	width: 500px;
+	padding-top: 40px;
+	/*color: white;*/
+	position: relative;
+	
+	
+}
+
+input, textarea,Submit{
+	width: 300px;	
+	border: none;
+	border-radius: 30px;
+	outline: none;
+	padding: 5px;
+	font-family: 'Sniglet', cursive;
+	font-size: 1em;
+	color: #AFAFAF;
+	transition: border 0.5s;
+	-webkit-transition: border 0.5s;
+	-moz-transition: border 0.5s;
+	-o-transition: border 0.5s;
+	border: solid 3px #98d4f3;	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+		background-color: white;
+	
+}
+
+
+
+input[type="submit"]{
+	background-color: #AFAFAF;
+	color: white;
+	height: 50px;
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 1.29em;
+	font-family: 'Sniglet', cursive;
+	-webkit-transition: background-color 0.5s;
+	-moz-transition: background-color 0.5s;
+	-o-transition: background-color 0.5s;
+	transition: background-color 0.5s;
+}
+input[type="submit"]:hover{
+	background-color: #AFAFAF;
+	
+}
+label{
+	font-size: 1.5em;
+	margin-top: 20px;
+	padding-left: 20px;
+}
+.formgroup, .formgroup-active, .formgroup-error{
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: 10.5%;
+	transition: background-image 0.7s;
+	-webkit-transition: background-image 0.7s;
+	-moz-transition: background-image 0.7s;
+	-o-transition: background-image 0.7s;
+	width: 566px;
+	padding-top: 2px;
+}
+
+
+}
+</style>
