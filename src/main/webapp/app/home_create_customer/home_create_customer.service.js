@@ -7,7 +7,7 @@
     formulaireCustomer.$inject = ['$resource', 'DateUtils'];
 
     function formulaireCustomer ($resource, DateUtils) {
-        var resourceUrl =  'api/formulaireCustomer/:id';
+        var resourceUrl =  'api/customers/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -22,10 +22,8 @@
             },
             'save': {
                 method: 'POST',
-                //headers: {'Content-Type': 'multipart/form-data'},
                 transformRequest: function (data) {
 	                var copy = angular.copy(data);
-	                //copy.registrationDate = DateUtils.convertLocalDateToServer(copy.registrationDate);
 	                return angular.toJson(copy);
                 }
             
