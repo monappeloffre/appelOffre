@@ -48,7 +48,7 @@ public class CustomerResourceIntTest {
     private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_REGISTRATION_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate DEFAULT_REGISTRATION_DATE = LocalDate.now();
     private static final LocalDate UPDATED_REGISTRATION_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";

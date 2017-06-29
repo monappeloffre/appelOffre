@@ -64,9 +64,13 @@ public class SecurityUtilsUnitTest {
         authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("user", "user", authorities));
         SecurityContextHolder.setContext(securityContext);
-
         assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)).isTrue();
         assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)).isFalse();
+    }
+    
+    @Test
+    public void testIdUsers() {
+    	assertThat("").isEqualTo("");
     }
 
 }

@@ -1,9 +1,5 @@
-
 <div ng-repeat="it in vm.myProjects">
 	<div class="row" style="border : solid 5px grey">
-	
-	
-	
 		<div>
 			<div>
 			Titre:<span>{{it.title}}</span><br>
@@ -13,7 +9,7 @@
 				
 			<div class="col-sm-3">
 				<div ng-repeat="photo in vm.photos">
-					<span ng-if="photo.idproject == it.id == true">
+					<span ng-if="photo.idproject === it.id">
 						<img ng-src="{{photo.link}}"style="max-height: 200px;" alt="photo image">		
 					</span>
 				</div>
@@ -28,10 +24,10 @@
 			</div>
 			
 			<div ng-repeat="quote in vm.quotes">
-					<span ng-if="quote.idproject == it.id == true">
-						<span>{{quote.provider}} : <a href="{{quote.link}}">Devis</a></span>
-						 <span class="glyphicon glyphicon-save">							
-					</span>
+				<span ng-if="quote.idproject === it.id">
+					<span><a href="{{quote.link}}">{{quote.provider}}</a></span>
+					 <span class="glyphicon glyphicon-save">							
+				</span>
 			</div>
 			<br>
 		</div>

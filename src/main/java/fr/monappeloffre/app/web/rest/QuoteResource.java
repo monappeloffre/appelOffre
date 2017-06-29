@@ -141,26 +141,22 @@ public class QuoteResource {
 			@RequestParam("file") MultipartFile file, 
 			@RequestParam("idProject") Long idProject
 			){
-    	
-    	Provider provider = null;
-		User currentUserLogged;
-		Long idUser = 1l;
+
 		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
-		if (optional.isPresent()) {
-			currentUserLogged = optional.get();
-			idUser = currentUserLogged.getId();
-		}
+		Long idUser = optional.isPresent() ? optional.get().getId() : 0l;
 
 		log.debug("id User logged : "+idUser);
 		Optional<Provider> optionalProvider = providerRepository.findByidUser(idUser);
-		provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
-		Quote quote = new Quote();
+		Provider provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
 		Project project = projectRepository.findOne(idProject);
 		
 		try {
+			Quote quote = new Quote();
 			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/devis/"+file.getOriginalFilename());
 			log.info("Dir to save: "+destinationFichier);
+			
 			file.transferTo(destinationFichier);
+			
 			quote.setFile("content/devis/" + file.getOriginalFilename());
 			quote.setProjectQU(project);
 			quote.setProviderQ(provider);
@@ -181,18 +177,13 @@ public class QuoteResource {
     @Timed			
 	public List<Quote> findQuoteOfCurrentProvider(@RequestParam("idProjects") Long[] idProjects){
     	List<Project> projects= new ArrayList<>();
-    	Provider provider = null;
-		User currentUserLogged;
-		Long idUser = 1l;
+		
 		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
-		if (optional.isPresent()) {
-			currentUserLogged = optional.get();
-			idUser = currentUserLogged.getId();
-		}
+		Long idUser = optional.isPresent() ? optional.get().getId() : 0l;
 
 		log.debug("id User logged : "+idUser);
 		Optional<Provider> optionalProvider = providerRepository.findByidUser(idUser);
-		provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
+		Provider provider = optionalProvider.isPresent() ? optionalProvider.get() : null;
 		
 		for (Long idProject : idProjects)
 		{

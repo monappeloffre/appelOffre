@@ -159,32 +159,26 @@ public class ProjectResource {
 	@Transactional
 	public List<Project> getEligibleProjects() {
 		log.debug("REST request to get eligible Projects");
-		//providerRepository.findByidUser((long) 4);
-		//Provider curr = providerRepository.findOne((long) 2);
-		List<Long> activityIds = new ArrayList<>();
-		User currentUserLogged;
-		Long idUser = 1l;
+		List<Activity> activities = new ArrayList<>();
+
 		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
-		if (optional.isPresent()) {
-			currentUserLogged = optional.get();
-			idUser = currentUserLogged.getId();
-		}
+		Long idUser = optional.isPresent() ? optional.get().getId() : 0l;
+
 
 		log.debug("id User logged : "+idUser);
 		Optional<Provider> optionalProvider = providerRepository.findByidUser(idUser);
 		if (optionalProvider.isPresent())
 		{
 			Provider provider = optionalProvider.get();
-			//instancier une liste
 
 			// parcourir les providerActivity 
 			for(ProviderActivity providerActivity : provider.getProviderativityPROVIDERS()){
-				activityIds.add(providerActivity.getActivityProvider().getId());
+				activities.add(providerActivity.getActivityProvider());
 			}
 		}
 
 
-		return projectRepository.findByProjectactivityPROJECTS_ActivityProjectIdIn(activityIds);
+		return projectRepository.findByProjectactivityPROJECTS_ActivityProjectIn(activities);
 	}
 
 	//Obtenir tous mes projets (Customer connecté)
@@ -193,18 +187,13 @@ public class ProjectResource {
 	@Transactional
 	public List<Project> getmyProjects() {
 		log.debug("REST request to get all my Projects (customer)");
-		Customer customer = null;
-		User currentUserLogged;
-		Long idUser = 1l;
+		
 		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
-		if (optional.isPresent()) {
-			currentUserLogged = optional.get();
-			idUser = currentUserLogged.getId();
-		}
+		Long idUser = optional.isPresent() ? optional.get().getId() : 0l;
 
 		log.debug("id User logged : "+idUser);
 		Optional<Customer> optionalCustomer = customerRepository.findByidUser(idUser);
-		customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
+		Customer customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
 
 		return projectRepository.findBycustomerP(customer);
 	}
@@ -217,19 +206,15 @@ public class ProjectResource {
 			@RequestParam("title") String title
 			) throws URISyntaxException { 	
 		log.debug("REST request to save Project : {}" + title + " " + description);
+		
 		Project project = new Project();
-		Customer customer = null;
-		User currentUserLogged;
-		Long idUser = 1l;
+		
 		Optional<User> optional = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
-		if (optional.isPresent()) {
-			currentUserLogged = optional.get();
-			idUser = currentUserLogged.getId();
-		}
+		Long idUser = optional.isPresent() ? optional.get().getId() : 0l;
 
 		log.debug("id User logged : "+idUser);
 		Optional<Customer> optionalCustomer = customerRepository.findByidUser(idUser);
-		customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
+		Customer customer = optionalCustomer.isPresent() ? optionalCustomer.get() : null;
 		
 		//Date du jour du système
 		project.setDateSend(LocalDate.now());
@@ -269,7 +254,7 @@ public class ProjectResource {
 		}
 		
 		
-		return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
+		return ResponseEntity.created(new URI("/api/create-new-project/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}

@@ -56,16 +56,11 @@
     	        	'Content-Type': undefined,
     	        	'Accept': "*/*"
     	        }
-    	    
-    	    
-    	    
     	    }).success(function(data, status, headers, config) {
     	    	console.log("uploading imageData OK");
     	    	console.log("data test : " + data);
     	    	console.log("fd test : " + fd);
     	    	$state.go('home');
-    	    	
-    	    	
     	    })
     	    .error(function(err) {
     	    	console.log("uploading imageData ERROR", err);

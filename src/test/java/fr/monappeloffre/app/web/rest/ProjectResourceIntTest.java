@@ -4,6 +4,7 @@ import fr.monappeloffre.app.MonAppelOffreApp;
 
 import fr.monappeloffre.app.domain.Project;
 import fr.monappeloffre.app.repository.ProjectRepository;
+import fr.monappeloffre.app.security.SecurityUtils;
 import fr.monappeloffre.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -15,6 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -46,7 +50,7 @@ public class ProjectResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_DATE_SEND = LocalDate.ofEpochDay(0L);
+    private static final LocalDate DEFAULT_DATE_SEND = LocalDate.now();
     private static final LocalDate UPDATED_DATE_SEND = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";
