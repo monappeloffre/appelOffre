@@ -45,16 +45,10 @@
 				
 				}).success(function(data, status, headers, config) {
 					console.log("Success");
-					console.log("retour 2",data);
-					angular.forEach(data, function (value, prop, obj) {
-						vm.photos.push({idproject : value.projectPIC.id, link:value.link});
-		            });
-					console.log("array after push: ",vm.photos);
-					return true;
+					$state.reload();
 				})
 				.error(function(err) {
 				console.log("ERROR", err);
-					return false;
 				});
         	}
         }

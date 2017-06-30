@@ -41,9 +41,11 @@
 			
        	 	var fd = new FormData();
        	 	
-			for (var i = 0; i < vm.fileToUpload.length; i++) {
-				fd.append("images", vm.fileToUpload[i]);
-			}
+       	 	if (vm.fileToUpload !== null) {
+				for (var i = 0; i < vm.fileToUpload.length; i++) {
+					fd.append("images", vm.fileToUpload[i]);
+				}
+       	 	}
        	 	//fd.append("images",vm.fileToUpload);
        	 	fd.append("activities", vm.allActivities);
        	 	fd.append("description", vm.description);
